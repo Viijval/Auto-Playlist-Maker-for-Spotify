@@ -214,6 +214,27 @@ All of these are defined in store/index.ts. The component just pulls them out he
           height: calc(100vh - 65px);
         }
 
+        @media (max-width: 640px) {
+          .ps-header { padding: 16px 20px; }
+          .ps-main {
+            grid-template-columns: 1fr;
+            height: auto;
+            overflow-y: auto;
+          }
+          .ps-left {
+            padding: 24px 20px;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+          }
+          .ps-right {
+            padding: 24px 20px;
+          }
+          .ps-panel {
+            min-height: auto;
+          }
+          .ps-title { font-size: 1.5rem; }
+        }
+
         /* Left */
         .ps-left {
           padding: 36px 40px;

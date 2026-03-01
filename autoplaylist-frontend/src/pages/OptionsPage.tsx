@@ -282,6 +282,25 @@ export default function OptionsPage() {
           height: calc(100vh - 65px);
         }
 
+        @media (max-width: 640px) {
+          .op-header { padding: 16px 20px; }
+          .op-main {
+            grid-template-columns: 1fr;
+            height: auto;
+            overflow-y: auto;
+          }
+          .op-left {
+            padding: 24px 20px;
+            border-right: none;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+          }
+          .op-right {
+            padding: 24px 20px;
+          }
+          .op-title { font-size: 1.4rem; }
+          .op-actions { position: sticky; bottom: 0; background: #080808; padding: 16px 0 8px; }
+        }
+
         .op-left {
           padding: 36px 40px;
           border-right: 1px solid rgba(255,255,255,0.07);

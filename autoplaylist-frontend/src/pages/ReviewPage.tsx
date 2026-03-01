@@ -491,4 +491,20 @@ const sharedStyles = `
     transition: background 0.15s;
   }
   .rv-start-over:hover { background: rgba(255,255,255,0.11); }
+
+  @media (max-width: 640px) {
+    .rv-header { padding: 16px 20px; }
+    .rv-main { padding: 24px 20px; }
+    .rv-title { font-size: 1.3rem; }
+    .rv-grid { grid-template-columns: 1fr; }
+    .rv-card--expanded { grid-column: span 1; }
+    .rv-footer {
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 20px;
+    }
+    .rv-cancel-btn { width: 100%; text-align: center; }
+    .rv-create-btn { width: 100%; }
+    .rv-summary-count { font-size: 1.5rem; }
+  }
 `
