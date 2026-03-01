@@ -231,7 +231,7 @@ def home():
 @app.get("/login")
 def login():
     # generates the Spotify login URL and redirects the user there
-    auth_url = sp_oauth.get_authorize_url()
+    auth_url = sp_oauth.get_authorize_url(show_dialog=True)
     return RedirectResponse(auth_url)
 
 
