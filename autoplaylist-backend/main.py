@@ -18,7 +18,9 @@ app = FastAPI()
 # basically React and FastAPI run on different ports, without this nothing works
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    
+    #allow_origins=["http://localhost:5173"],
+    allow_origins=["https://auto-playlist-maker-for-spotify-umt.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -245,7 +247,7 @@ def callback(request: Request):
     access_token = token_info["access_token"]
     refresh_token = token_info.get("refresh_token", "")
     frontend_url = (
-        f"http://localhost:5173/callback"
+        f"https://your-vercel-app.vercel.app/callback"
         f"?token={access_token}"
         f"&refresh={refresh_token}"
     )
