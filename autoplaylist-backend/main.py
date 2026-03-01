@@ -240,25 +240,44 @@ def login():
     auth_url += "&show_dialog=true"
     return RedirectResponse(auth_url)
 
-
-@app.get("/callback")
-def callback(request: Request):
-    # Spotify calls this after the user logs in, with a short-lived code
+# Spotify calls this after the user logs in, with a short-lived code
     # we exchange that code for an access token + refresh token
     # then send both to the frontend via URL params
+@app.get("/callback")
+def callback(request: Request):
     code = request.query_params.get("code")
     if not code:
         raise HTTPException(status_code=400, detail="Missing code from Spotify")
-    token_info = sp_oauth.get_access_token(code)
+    
+    # Exchange code for tokens manually, bypassing spotipy's caching
+    import base64
+    token_url = "https://accounts.spotify.com/api/token"
+    client_id = os.getenv("SPOTIPY_CLIENT_ID")
+    client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+    redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
+    
+    credentials = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
+    
+    import requests as req
+    response = req.post(token_url, headers={
+        "Authorization": f"Basic {credentials}",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }, data={
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": redirect_uri,
+    })
+    
+    token_info = response.json()
     access_token = token_info["access_token"]
     refresh_token = token_info.get("refresh_token", "")
+    
     frontend_url = (
         f"https://auto-playlist-maker-for-spotify.vercel.app/callback"
         f"?token={access_token}"
         f"&refresh={refresh_token}"
     )
     return RedirectResponse(frontend_url)
-
 
 @app.post("/refresh")
 def refresh_token_endpoint(request_body: dict):
