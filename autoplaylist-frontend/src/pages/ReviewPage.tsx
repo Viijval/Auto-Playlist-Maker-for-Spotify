@@ -1,6 +1,6 @@
+import { useStore, type GeneratedResults } from '../store'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useStore } from '../store'
 import { apiFetch } from '../api'
 
 interface PlaylistEntry {
@@ -10,7 +10,7 @@ interface PlaylistEntry {
   selected: boolean
 }
 
-function buildEntries(results: NonNullable<ReturnType<typeof useStore>['generatedResults']>): PlaylistEntry[] {
+function buildEntries(results: GeneratedResults): PlaylistEntry[] {
   const entries: PlaylistEntry[] = []
   Object.entries(results.genre || {}).forEach(([name, ids]) => {
     entries.push({ name, trackIds: ids, type: 'genre', selected: true })
@@ -32,7 +32,9 @@ const TYPE_LABELS = {
 
 export default function ReviewPage() {
   const navigate = useNavigate()
-  const { generatedResults, trackDetails, logout } = useStore()
+  const generatedResults = useStore((state) => state.generatedResults)
+  const trackDetails = useStore((state) => state.trackDetails)
+  const logout = useStore((state) => state.logout)
 
   const [entries, setEntries] = useState<PlaylistEntry[]>(
     generatedResults ? buildEntries(generatedResults) : []

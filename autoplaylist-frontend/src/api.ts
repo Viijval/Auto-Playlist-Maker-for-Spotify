@@ -11,8 +11,8 @@
 
 import { useStore } from './store'
 
-const BASE = 'http://127.0.0.1:8888'
-
+//const BASE = 'http://127.0.0.1:8888'
+const BASE = 'https://auto-playlist-maker-for-spotify-production.up.railway.app'
 export async function apiFetch(
   path: string,
   options: RequestInit = {}

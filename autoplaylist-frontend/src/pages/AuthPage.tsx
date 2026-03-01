@@ -1,6 +1,7 @@
 export default function AuthPage() {
   const handleLogin = () => {
-    window.location.href = 'http://127.0.0.1:8888/login'
+    //window.location.href = 'http://127.0.0.1:8888/login'
+    window.location.href = 'https://auto-playlist-maker-for-spotify-production.up.railway.app/login'
   }
 /*This is the first page, it fetches tokens and login data for backend and redirects to playlist selection page. */
   return (
