@@ -247,7 +247,7 @@ def callback(request: Request):
     access_token = token_info["access_token"]
     refresh_token = token_info.get("refresh_token", "")
     frontend_url = (
-        f"https://your-vercel-app.vercel.app/callback"
+        f"https://auto-playlist-maker-for-spotify.vercel.app/callback"
         f"?token={access_token}"
         f"&refresh={refresh_token}"
     )
