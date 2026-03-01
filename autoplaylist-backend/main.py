@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.cache_handler import CacheHandler
 
 load_dotenv()
 
@@ -37,6 +38,10 @@ SCOPE = (
 
 # sets up the Spotify OAuth flow using credentials from .env
 # this handles the login redirect and token exchange
+class NoCache(CacheHandler):
+    def get_cached_token(self): return None
+    def save_token_to_cache(self, token): pass
+        # to ensure concurrent uses.
 sp_oauth = SpotifyOAuth(
     client_id=os.getenv("SPOTIPY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
